@@ -19,7 +19,7 @@ public sealed class ValhallaReader : IEngineReader
     readonly record struct Location(string Path, ValhallaForge.Entry? Entry, long Offset, int Size);
     readonly ConcurrentDictionary<string, IReadOnlyDictionary<string, Location>> located = new();
 
-    public int ReaderVersion(EngineInfo engine) => 3;
+    public int ReaderVersion(EngineInfo engine) => 4;
 
     public EngineInfo? Detect(Game game)
     {
@@ -117,6 +117,8 @@ public sealed class ValhallaReader : IEngineReader
                         Matches(file, "4a68b1345bf4519213d47cb1cd9a9c84964407c55b9a150072a6f4da15d060e5"),
                     "datapc_ack_asgard_dx12.forge" when file.Length == 163_840 =>
                         Matches(file, "3acac76768e9c684056e6679f7a8bc1bbce754ad93e90052732863eedbda7241"),
+                    "datapc_sharedgroup_00_dx12.forge" when file.Length == 37_584_896 =>
+                        Matches(file, "830b61623545411759cbb79250406042b8f366a31080f769b20a1df8656d4e33"),
                     _ => false
                 };
                 var entries = ValhallaForge.Entries(file);
